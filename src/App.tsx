@@ -1,5 +1,14 @@
+import { useEffect, useState } from "react";
+
 const App = () => {
-  return <div>App</div>;
+  const [data, setData] = useState("");
+  useEffect(() => {
+    (async () => {
+      const string = await window.electron.getStudents();
+      setData(string);
+    })();
+  }, []);
+  return <div>{data}</div>;
 };
 
 export default App;

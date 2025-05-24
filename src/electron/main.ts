@@ -1,8 +1,12 @@
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, ipcMain } from "electron";
 import path from "path";
 
 app.on("ready", () => {
-  const mainWindow = new BrowserWindow();
+  const mainWindow = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(app.getAppPath(), "dist-electron", "preload.cjs"),
+    },
+  });
 
   if (app.isPackaged) {
     mainWindow.loadFile(
@@ -11,4 +15,8 @@ app.on("ready", () => {
   } else {
     mainWindow.loadURL("http://localhost:5173");
   }
+});
+
+ipcMain.handle("get-students", async () => {
+  return "hello world";
 });

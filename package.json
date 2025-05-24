@@ -11,8 +11,10 @@
     "build:react": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dev:electron": "concurrently \"tsc --project src/electron/tsconfig.json --watch\" \"wait-on dist-electron/main.js && npx electron .\"",
-    "dev": "concurrently -k  \"npm run dev:react\" \"npm run dev:electron\""
+    "dev:electron": "concurrently -k \"tsc --project src/electron/tsconfig.json --watch\" \"wait-on dist-electron/main.js && npx electron .\"",
+    "build:electron": "tsc --project src/electron/tsconfig.json",
+    "dev": "concurrently -k  \"npm run dev:react\" \"npm run dev:electron\"",
+    "build:win": "npm run build:react && npm run build:electron && wait-on dist-electron/main.js && electron-builder --win --x64"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
