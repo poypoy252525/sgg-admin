@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import AppSidebar from "./components/app-sidebar";
+import { SidebarProvider } from "./components/ui/sidebar";
+import "./assets/fonts/Inter.ttf";
 
 const App = () => {
-  const [data, setData] = useState("");
-  useEffect(() => {
-    (async () => {
-      const string = await window.electron.getStudents();
-      setData(string);
-    })();
-  }, []);
-  return <div>{data}</div>;
+  return (
+    <div className="font-display">
+      <SidebarProvider>
+        <AppSidebar />
+        <Outlet />
+      </SidebarProvider>
+    </div>
+  );
 };
 
 export default App;

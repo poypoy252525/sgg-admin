@@ -1,7 +1,7 @@
 {
   "appId": "com.delfin.sgg",
-  "files": ["dist-electron", "dist-react"],
-  "extraResources": [],
+  "files": ["dist-electron", "dist-react", "generated"],
+  "extraResources": ["prisma"],
   "icon": "./sgg_logo.png",
   "win": {
     "target": ["msi"]
