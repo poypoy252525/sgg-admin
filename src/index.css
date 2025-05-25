@@ -128,3 +128,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+.styled-scrollbar {
+  overflow: auto;
+}
+
+/* The entire scrollbar */
+.styled-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* The track (background) */
+.styled-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* The thumb (draggable part) */
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 4px;
+  border: 2px solid transparent; /* padding with background clipping */
+  background-clip: content-box;
+}

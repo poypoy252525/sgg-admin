@@ -1,29 +1,34 @@
+import PageBody from "@/components/page-body";
 import PageContainer from "@/components/page-container";
 import PageDescription from "@/components/page-description";
 import PageHeader from "@/components/page-header";
 import PageTitle from "@/components/page-title";
 import { Button } from "@/components/ui/button";
-import { Student } from "generated/prisma";
+import { useStudentStore } from "@/stores/student";
 import { Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { columns } from "./columns";
+import { DataTable } from "../../components/data-table";
 
 const StudentsPage = () => {
-  const [students, setStudents] = useState<Student[]>([]);
+  const { list: students, setStudents } = useStudentStore();
+
+  const fetchStudents = useCallback(async () => {
+    const students = await window.electron.getStudents();
+    console.log(students[0].course);
+    setStudents(students);
+  }, [setStudents]);
 
   useEffect(() => {
-    (async () => {
-      const students = await window.electron.getStudents();
-      setStudents(students);
-    })();
-  }, []);
-
-  console.log(students);
+    fetchStudents();
+  }, [fetchStudents]);
 
   return (
     <PageContainer>
       <PageHeader
         actions={
           <Button
+            size="sm"
             onClick={async () => {
               await window.electron.createStudent({
                 courseId: 1,
@@ -31,6 +36,7 @@ const StudentsPage = () => {
                 middleName: "Eguia",
                 lastName: "Delfin",
               });
+              fetchStudents();
             }}
           >
             <Plus />
@@ -41,6 +47,9 @@ const StudentsPage = () => {
         <PageTitle>Students</PageTitle>
         <PageDescription>Lorem ipsum dolor sit amet.</PageDescription>
       </PageHeader>
+      <PageBody>
+        <DataTable columns={columns} data={students} columnFilter="fullName" />
+      </PageBody>
     </PageContainer>
   );
 };

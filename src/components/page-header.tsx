@@ -7,7 +7,7 @@ interface Props {
 
 const PageHeader = ({ children, actions }: Props) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center p-2">
       <div className="flex flex-col">{children}</div>
       <div>{actions}</div>
     </div>

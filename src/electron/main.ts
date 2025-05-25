@@ -40,7 +40,11 @@ app.on("ready", () => {
 const prisma = new PrismaClient();
 
 ipcMain.handle("get-students", async () => {
-  const students = prisma.student.findMany();
+  const students = prisma.student.findMany({
+    include: {
+      course: true,
+    },
+  });
   return students;
 });
 
@@ -51,4 +55,15 @@ ipcMain.handle("create-student", async (_event, student: ZodStudent) => {
       image: undefined,
     },
   });
+});
+
+ipcMain.handle("get-courses", async () => {
+  const courses = await prisma.course.findMany({
+    include: {
+      competencies: true,
+      students: true,
+    },
+  });
+
+  return courses;
 });
