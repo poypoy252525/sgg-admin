@@ -1,0 +1,59 @@
+import InputForm from "@/components/input-form";
+import SelectForm from "@/components/select-form";
+import { Form } from "@/components/ui/form";
+import { studentSchema, ZodStudent } from "@/schemas/student";
+import { useStudentStore } from "@/stores/student";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
+const StudentForm = () => {
+  const form = useForm<ZodStudent>({
+    resolver: zodResolver(studentSchema),
+  });
+
+  const [courses, setCourses] = useState<{ label: string; value: string }[]>(
+    []
+  );
+  const setStudents = useStudentStore((state) => state.setStudents);
+
+  useEffect(() => {
+    (async () => {
+      const data = await window.electron.getCourses();
+      setCourses(
+        data.map((item) => ({ label: item.title, value: item.id.toString() }))
+      );
+    })();
+  }, []);
+
+  return (
+    <Form {...form}>
+      <form
+        id="add-student-form"
+        onSubmit={form.handleSubmit(async (data) => {
+          await window.electron.createStudent(data);
+          const students = await window.electron.getStudents();
+          setStudents(students);
+        })}
+        className="flex flex-col space-y-8 p-8"
+      >
+        <InputForm form={form} label="First Name" name="firstName" />
+        <InputForm
+          form={form}
+          label="Middle Name (Optional)"
+          name="middleName"
+          description="Leave it blank if no Middle name."
+        />
+        <InputForm form={form} label="Last Name" name="lastName" />
+        <SelectForm
+          form={form}
+          items={courses}
+          label="Course"
+          name="courseId"
+        />
+      </form>
+    </Form>
+  );
+};
+
+export default StudentForm;

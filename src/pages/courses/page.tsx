@@ -29,7 +29,7 @@ const CoursesPage = () => {
         </PageDescription>
       </PageHeader>
       <PageBody>
-        <DataTable columns={columns} data={courses} columnFilter="title" />
+        <DataTable columns={columns} data={courses} />
       </PageBody>
     </PageContainer>
   );

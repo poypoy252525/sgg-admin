@@ -18,6 +18,8 @@ model Student {
   firstName  String
   middleName String?
   lastName   String
+  email      String   @unique
+  age        Int
   image      String?
   courseId   Int
   course     Course   @relation(fields: [courseId], references: [id])
