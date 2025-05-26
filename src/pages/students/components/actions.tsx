@@ -12,9 +12,9 @@ import { Row } from "@tanstack/react-table";
 import { Student } from "generated/prisma";
 import { Ellipsis, Eye, Trash2, UserPen } from "lucide-react";
 import { useState } from "react";
-import UpsertStudentSheet from "./upsert-student-sheet";
 import { Link } from "react-router-dom";
-import { useStudentStore } from "@/stores/student";
+import DeleteStudentDialog from "./delete-student-dialog";
+import UpsertStudentSheet from "./upsert-student-sheet";
 
 interface Props {
   row: Row<Student>;
@@ -22,13 +22,19 @@ interface Props {
 
 const Actions = ({ row }: Props) => {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const setStudents = useStudentStore((state) => state.setStudents);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  // const setStudents = useStudentStore((state) => state.setStudents);
   return (
     <>
       <UpsertStudentSheet
         student={row.original}
         open={sheetOpen}
         setOpen={setSheetOpen}
+      />
+      <DeleteStudentDialog
+        student={row.original}
+        open={deleteDialogOpen}
+        setOpen={setDeleteDialogOpen}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -57,9 +63,13 @@ const Actions = ({ row }: Props) => {
           <DropdownMenuGroup>
             <DropdownMenuItem
               variant="destructive"
-              onClick={async () => {
-                await window.electron.deleteStudent(row.original.id);
-                setStudents(await window.electron.getStudents());
+              // onClick={async () => {
+              //   await window.electron.deleteStudent(row.original.id);
+              //   setStudents(await window.electron.getStudents());
+              // }}
+
+              onClick={() => {
+                setDeleteDialogOpen(true);
               }}
             >
               <span>Delete</span>

@@ -22,7 +22,7 @@ const UpsertStudentSheet = memo(
   ({ children, student, open, setOpen }: Props) => {
     const [localOpen, setLocalOpen] = useState(false);
     return (
-      <Sheet open={open || localOpen} onOpenChange={setOpen || setLocalOpen}>
+      <Sheet open={open ?? localOpen} onOpenChange={setOpen ?? setLocalOpen}>
         {children && <SheetTrigger asChild>{children}</SheetTrigger>}
         <SheetContent className="flex flex-col gap-0">
           <SheetHeader className="h-14 border-b justify-center">
