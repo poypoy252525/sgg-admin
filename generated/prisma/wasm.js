@@ -124,7 +124,10 @@ exports.Prisma.StudentScalarFieldEnum = {
   firstName: 'firstName',
   middleName: 'middleName',
   lastName: 'lastName',
+  email: 'email',
+  age: 'age',
   image: 'image',
+  sex: 'sex',
   courseId: 'courseId'
 };
 
@@ -156,6 +159,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Sex = exports.$Enums.Sex = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+};
+
 exports.CourseType = exports.$Enums.CourseType = {
   TESDA: 'TESDA',
   DEPED: 'DEPED',

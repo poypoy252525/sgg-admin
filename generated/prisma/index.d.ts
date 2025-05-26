@@ -41,11 +41,23 @@ export namespace $Enums {
 
 export type CourseType = (typeof CourseType)[keyof typeof CourseType]
 
+
+export const Sex: {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+};
+
+export type Sex = (typeof Sex)[keyof typeof Sex]
+
 }
 
 export type CourseType = $Enums.CourseType
 
 export const CourseType: typeof $Enums.CourseType
+
+export type Sex = $Enums.Sex
+
+export const Sex: typeof $Enums.Sex
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1122,11 +1134,13 @@ export namespace Prisma {
 
   export type StudentAvgAggregateOutputType = {
     id: number | null
+    age: number | null
     courseId: number | null
   }
 
   export type StudentSumAggregateOutputType = {
     id: number | null
+    age: number | null
     courseId: number | null
   }
 
@@ -1137,7 +1151,10 @@ export namespace Prisma {
     firstName: string | null
     middleName: string | null
     lastName: string | null
+    email: string | null
+    age: number | null
     image: string | null
+    sex: $Enums.Sex | null
     courseId: number | null
   }
 
@@ -1148,7 +1165,10 @@ export namespace Prisma {
     firstName: string | null
     middleName: string | null
     lastName: string | null
+    email: string | null
+    age: number | null
     image: string | null
+    sex: $Enums.Sex | null
     courseId: number | null
   }
 
@@ -1159,7 +1179,10 @@ export namespace Prisma {
     firstName: number
     middleName: number
     lastName: number
+    email: number
+    age: number
     image: number
+    sex: number
     courseId: number
     _all: number
   }
@@ -1167,11 +1190,13 @@ export namespace Prisma {
 
   export type StudentAvgAggregateInputType = {
     id?: true
+    age?: true
     courseId?: true
   }
 
   export type StudentSumAggregateInputType = {
     id?: true
+    age?: true
     courseId?: true
   }
 
@@ -1182,7 +1207,10 @@ export namespace Prisma {
     firstName?: true
     middleName?: true
     lastName?: true
+    email?: true
+    age?: true
     image?: true
+    sex?: true
     courseId?: true
   }
 
@@ -1193,7 +1221,10 @@ export namespace Prisma {
     firstName?: true
     middleName?: true
     lastName?: true
+    email?: true
+    age?: true
     image?: true
+    sex?: true
     courseId?: true
   }
 
@@ -1204,7 +1235,10 @@ export namespace Prisma {
     firstName?: true
     middleName?: true
     lastName?: true
+    email?: true
+    age?: true
     image?: true
+    sex?: true
     courseId?: true
     _all?: true
   }
@@ -1302,7 +1336,10 @@ export namespace Prisma {
     firstName: string
     middleName: string | null
     lastName: string
+    email: string
+    age: number
     image: string | null
+    sex: $Enums.Sex
     courseId: number
     _count: StudentCountAggregateOutputType | null
     _avg: StudentAvgAggregateOutputType | null
@@ -1332,7 +1369,10 @@ export namespace Prisma {
     firstName?: boolean
     middleName?: boolean
     lastName?: boolean
+    email?: boolean
+    age?: boolean
     image?: boolean
+    sex?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
@@ -1344,7 +1384,10 @@ export namespace Prisma {
     firstName?: boolean
     middleName?: boolean
     lastName?: boolean
+    email?: boolean
+    age?: boolean
     image?: boolean
+    sex?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
@@ -1356,7 +1399,10 @@ export namespace Prisma {
     firstName?: boolean
     middleName?: boolean
     lastName?: boolean
+    email?: boolean
+    age?: boolean
     image?: boolean
+    sex?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
@@ -1368,11 +1414,14 @@ export namespace Prisma {
     firstName?: boolean
     middleName?: boolean
     lastName?: boolean
+    email?: boolean
+    age?: boolean
     image?: boolean
+    sex?: boolean
     courseId?: boolean
   }
 
-  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "firstName" | "middleName" | "lastName" | "image" | "courseId", ExtArgs["result"]["student"]>
+  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "firstName" | "middleName" | "lastName" | "email" | "age" | "image" | "sex" | "courseId", ExtArgs["result"]["student"]>
   export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
@@ -1395,7 +1444,10 @@ export namespace Prisma {
       firstName: string
       middleName: string | null
       lastName: string
+      email: string
+      age: number
       image: string | null
+      sex: $Enums.Sex
       courseId: number
     }, ExtArgs["result"]["student"]>
     composites: {}
@@ -1827,7 +1879,10 @@ export namespace Prisma {
     readonly firstName: FieldRef<"Student", 'String'>
     readonly middleName: FieldRef<"Student", 'String'>
     readonly lastName: FieldRef<"Student", 'String'>
+    readonly email: FieldRef<"Student", 'String'>
+    readonly age: FieldRef<"Student", 'Int'>
     readonly image: FieldRef<"Student", 'String'>
+    readonly sex: FieldRef<"Student", 'Sex'>
     readonly courseId: FieldRef<"Student", 'Int'>
   }
     
@@ -4526,7 +4581,10 @@ export namespace Prisma {
     firstName: 'firstName',
     middleName: 'middleName',
     lastName: 'lastName',
+    email: 'email',
+    age: 'age',
     image: 'image',
+    sex: 'sex',
     courseId: 'courseId'
   };
 
@@ -4601,6 +4659,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Sex'
+   */
+  export type EnumSexFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Sex'>
+    
+
+
+  /**
    * Reference to a field of type 'CourseType'
    */
   export type EnumCourseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseType'>
@@ -4627,7 +4692,10 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     middleName?: StringNullableFilter<"Student"> | string | null
     lastName?: StringFilter<"Student"> | string
+    email?: StringFilter<"Student"> | string
+    age?: IntFilter<"Student"> | number
     image?: StringNullableFilter<"Student"> | string | null
+    sex?: EnumSexFilter<"Student"> | $Enums.Sex
     courseId?: IntFilter<"Student"> | number
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }
@@ -4639,13 +4707,17 @@ export namespace Prisma {
     firstName?: SortOrder
     middleName?: SortOrderInput | SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    age?: SortOrder
     image?: SortOrderInput | SortOrder
+    sex?: SortOrder
     courseId?: SortOrder
     course?: CourseOrderByWithRelationInput
   }
 
   export type StudentWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
     AND?: StudentWhereInput | StudentWhereInput[]
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
@@ -4654,10 +4726,12 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     middleName?: StringNullableFilter<"Student"> | string | null
     lastName?: StringFilter<"Student"> | string
+    age?: IntFilter<"Student"> | number
     image?: StringNullableFilter<"Student"> | string | null
+    sex?: EnumSexFilter<"Student"> | $Enums.Sex
     courseId?: IntFilter<"Student"> | number
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
-  }, "id">
+  }, "id" | "email">
 
   export type StudentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -4666,7 +4740,10 @@ export namespace Prisma {
     firstName?: SortOrder
     middleName?: SortOrderInput | SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    age?: SortOrder
     image?: SortOrderInput | SortOrder
+    sex?: SortOrder
     courseId?: SortOrder
     _count?: StudentCountOrderByAggregateInput
     _avg?: StudentAvgOrderByAggregateInput
@@ -4685,7 +4762,10 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter<"Student"> | string
     middleName?: StringNullableWithAggregatesFilter<"Student"> | string | null
     lastName?: StringWithAggregatesFilter<"Student"> | string
+    email?: StringWithAggregatesFilter<"Student"> | string
+    age?: IntWithAggregatesFilter<"Student"> | number
     image?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    sex?: EnumSexWithAggregatesFilter<"Student"> | $Enums.Sex
     courseId?: IntWithAggregatesFilter<"Student"> | number
   }
 
@@ -4827,7 +4907,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
     course: CourseCreateNestedOneWithoutStudentsInput
   }
 
@@ -4838,7 +4921,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
     courseId: number
   }
 
@@ -4848,7 +4934,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
     course?: CourseUpdateOneRequiredWithoutStudentsNestedInput
   }
 
@@ -4859,7 +4948,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
     courseId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -4870,7 +4962,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
     courseId: number
   }
 
@@ -4880,7 +4975,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
   }
 
   export type StudentUncheckedUpdateManyInput = {
@@ -4890,7 +4988,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
     courseId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -5078,6 +5179,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumSexFilter<$PrismaModel = never> = {
+    equals?: $Enums.Sex | EnumSexFieldRefInput<$PrismaModel>
+    in?: $Enums.Sex[]
+    notIn?: $Enums.Sex[]
+    not?: NestedEnumSexFilter<$PrismaModel> | $Enums.Sex
+  }
+
   export type CourseScalarRelationFilter = {
     is?: CourseWhereInput
     isNot?: CourseWhereInput
@@ -5095,12 +5203,16 @@ export namespace Prisma {
     firstName?: SortOrder
     middleName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    age?: SortOrder
     image?: SortOrder
+    sex?: SortOrder
     courseId?: SortOrder
   }
 
   export type StudentAvgOrderByAggregateInput = {
     id?: SortOrder
+    age?: SortOrder
     courseId?: SortOrder
   }
 
@@ -5111,7 +5223,10 @@ export namespace Prisma {
     firstName?: SortOrder
     middleName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    age?: SortOrder
     image?: SortOrder
+    sex?: SortOrder
     courseId?: SortOrder
   }
 
@@ -5122,12 +5237,16 @@ export namespace Prisma {
     firstName?: SortOrder
     middleName?: SortOrder
     lastName?: SortOrder
+    email?: SortOrder
+    age?: SortOrder
     image?: SortOrder
+    sex?: SortOrder
     courseId?: SortOrder
   }
 
   export type StudentSumOrderByAggregateInput = {
     id?: SortOrder
+    age?: SortOrder
     courseId?: SortOrder
   }
 
@@ -5193,6 +5312,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSexWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Sex | EnumSexFieldRefInput<$PrismaModel>
+    in?: $Enums.Sex[]
+    notIn?: $Enums.Sex[]
+    not?: NestedEnumSexWithAggregatesFilter<$PrismaModel> | $Enums.Sex
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSexFilter<$PrismaModel>
+    _max?: NestedEnumSexFilter<$PrismaModel>
   }
 
   export type EnumCourseTypeFilter<$PrismaModel = never> = {
@@ -5352,20 +5481,24 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type CourseUpdateOneRequiredWithoutStudentsNestedInput = {
-    create?: XOR<CourseCreateWithoutStudentsInput, CourseUncheckedCreateWithoutStudentsInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutStudentsInput
-    upsert?: CourseUpsertWithoutStudentsInput
-    connect?: CourseWhereUniqueInput
-    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutStudentsInput, CourseUpdateWithoutStudentsInput>, CourseUncheckedUpdateWithoutStudentsInput>
-  }
-
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumSexFieldUpdateOperationsInput = {
+    set?: $Enums.Sex
+  }
+
+  export type CourseUpdateOneRequiredWithoutStudentsNestedInput = {
+    create?: XOR<CourseCreateWithoutStudentsInput, CourseUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutStudentsInput
+    upsert?: CourseUpsertWithoutStudentsInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutStudentsInput, CourseUpdateWithoutStudentsInput>, CourseUncheckedUpdateWithoutStudentsInput>
   }
 
   export type StudentCreateNestedManyWithoutCourseInput = {
@@ -5524,6 +5657,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumSexFilter<$PrismaModel = never> = {
+    equals?: $Enums.Sex | EnumSexFieldRefInput<$PrismaModel>
+    in?: $Enums.Sex[]
+    notIn?: $Enums.Sex[]
+    not?: NestedEnumSexFilter<$PrismaModel> | $Enums.Sex
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -5608,6 +5748,16 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumSexWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Sex | EnumSexFieldRefInput<$PrismaModel>
+    in?: $Enums.Sex[]
+    notIn?: $Enums.Sex[]
+    not?: NestedEnumSexWithAggregatesFilter<$PrismaModel> | $Enums.Sex
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSexFilter<$PrismaModel>
+    _max?: NestedEnumSexFilter<$PrismaModel>
   }
 
   export type NestedEnumCourseTypeFilter<$PrismaModel = never> = {
@@ -5716,7 +5866,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
   }
 
   export type StudentUncheckedCreateWithoutCourseInput = {
@@ -5726,7 +5879,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
   }
 
   export type StudentCreateOrConnectWithoutCourseInput = {
@@ -5788,7 +5944,10 @@ export namespace Prisma {
     firstName?: StringFilter<"Student"> | string
     middleName?: StringNullableFilter<"Student"> | string | null
     lastName?: StringFilter<"Student"> | string
+    email?: StringFilter<"Student"> | string
+    age?: IntFilter<"Student"> | number
     image?: StringNullableFilter<"Student"> | string | null
+    sex?: EnumSexFilter<"Student"> | $Enums.Sex
     courseId?: IntFilter<"Student"> | number
   }
 
@@ -5885,7 +6044,10 @@ export namespace Prisma {
     firstName: string
     middleName?: string | null
     lastName: string
+    email: string
+    age: number
     image?: string | null
+    sex: $Enums.Sex
   }
 
   export type CompetencyCreateManyCourseInput = {
@@ -5902,7 +6064,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
   }
 
   export type StudentUncheckedUpdateWithoutCourseInput = {
@@ -5912,7 +6077,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
   }
 
   export type StudentUncheckedUpdateManyWithoutCourseInput = {
@@ -5922,7 +6090,10 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    sex?: EnumSexFieldUpdateOperationsInput | $Enums.Sex
   }
 
   export type CompetencyUpdateWithoutCourseInput = {

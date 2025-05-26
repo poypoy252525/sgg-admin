@@ -15,7 +15,6 @@ const StudentsPage = () => {
 
   const fetchStudents = useCallback(async () => {
     const students = await window.electron.getStudents();
-    console.log(students[0].course);
     setStudents(students);
   }, [setStudents]);
 

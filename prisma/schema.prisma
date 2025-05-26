@@ -21,6 +21,7 @@ model Student {
   email      String   @unique
   age        Int
   image      String?
+  sex        Sex
   courseId   Int
   course     Course   @relation(fields: [courseId], references: [id])
 }
@@ -51,4 +52,9 @@ enum CourseType {
   TESDA
   DEPED
   OTHERS
+}
+
+enum Sex {
+  MALE
+  FEMALE
 }

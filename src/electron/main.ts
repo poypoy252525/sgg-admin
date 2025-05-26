@@ -1,6 +1,6 @@
 import { BrowserWindow, app, ipcMain } from "electron";
 import path from "path";
-import { PrismaClient } from "../../generated/prisma/index.js";
+import { PrismaClient, Sex } from "../../generated/prisma/index.js";
 import { chmodSync, existsSync } from "fs";
 import { ZodStudent } from "../schemas/student.js";
 
@@ -52,6 +52,7 @@ ipcMain.handle("create-student", async (_event, student: ZodStudent) => {
   await prisma.student.create({
     data: {
       ...student,
+      sex: student.sex as Sex,
       image: undefined,
     },
   });

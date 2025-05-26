@@ -7,6 +7,7 @@ import PageTitle from "@/components/page-title";
 import { useCourseStore } from "@/stores/course";
 import { useCallback, useEffect } from "react";
 import { columns } from "./columns";
+import { Input } from "@/components/ui/input";
 
 const CoursesPage = () => {
   const { courses, setCourses } = useCourseStore();
@@ -29,7 +30,13 @@ const CoursesPage = () => {
         </PageDescription>
       </PageHeader>
       <PageBody>
-        <DataTable columns={columns} data={courses} />
+        <DataTable
+          columns={columns}
+          data={courses}
+          filterInputComponent={(props) => (
+            <Input {...props("title")} placeholder="Filter title..." />
+          )}
+        />
       </PageBody>
     </PageContainer>
   );

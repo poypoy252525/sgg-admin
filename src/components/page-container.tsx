@@ -6,7 +6,7 @@ interface Props {
 
 const PageContainer = ({ children }: Props) => {
   return (
-    <div className="container mx-auto p-6 space-y-8 flex flex-col h-full">
+    <div className="container mx-auto p-6 space-y-4 flex flex-col h-full">
       {children}
     </div>
   );

@@ -4,6 +4,9 @@ export const studentSchema = z.object({
   firstName: z.string(),
   middleName: z.string().optional(),
   lastName: z.string(),
+  email: z.string().email(),
+  age: z.coerce.number(),
+  sex: z.enum(["MALE", "FEMALE"]),
   image: z.string().optional(),
   courseId: z.coerce.number(),
 });

@@ -45,6 +45,23 @@ const StudentForm = () => {
           description="Leave it blank if no Middle name."
         />
         <InputForm form={form} label="Last Name" name="lastName" />
+        <InputForm form={form} label="Email" name="email" />
+        <InputForm form={form} label="Age" name="age" />
+        <SelectForm
+          form={form}
+          items={[
+            {
+              label: "Male",
+              value: "MALE",
+            },
+            {
+              label: "Female",
+              value: "FEMALE",
+            },
+          ]}
+          label="Gender"
+          name="sex"
+        />
         <SelectForm
           form={form}
           items={courses}
