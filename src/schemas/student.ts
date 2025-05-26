@@ -1,6 +1,7 @@
 import z from "zod";
 
 export const studentSchema = z.object({
+  id: z.coerce.number().optional(),
   firstName: z.string(),
   middleName: z.string().optional(),
   lastName: z.string(),

@@ -40,7 +40,10 @@ const SelectForm = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={field.onChange}
+            value={field.value && `${field.value}`}
+          >
             <FormControl>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder={label} />

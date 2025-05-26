@@ -4,12 +4,30 @@ import { Form } from "@/components/ui/form";
 import { studentSchema, ZodStudent } from "@/schemas/student";
 import { useStudentStore } from "@/stores/student";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Student } from "generated/prisma";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const StudentForm = () => {
+interface Props {
+  student?: Student;
+}
+
+const StudentForm = ({ student }: Props) => {
   const form = useForm<ZodStudent>({
     resolver: zodResolver(studentSchema),
+    ...(student && {
+      defaultValues: {
+        age: student.age,
+        courseId: student.courseId,
+        email: student.email,
+        firstName: student.firstName,
+        id: student.id,
+        lastName: student.lastName,
+        image: student.image || undefined,
+        middleName: student.middleName || undefined,
+        sex: student.sex,
+      },
+    }),
   });
 
   const [courses, setCourses] = useState<{ label: string; value: string }[]>(

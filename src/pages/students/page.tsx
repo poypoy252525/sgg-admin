@@ -7,8 +7,10 @@ import { useStudentStore } from "@/stores/student";
 import { useCallback, useEffect } from "react";
 import { DataTable } from "../../components/data-table";
 import { columns } from "./columns";
-import AddStudentSheet from "./components/add-student-sheet";
+import UpsertStudentSheet from "./components/upsert-student-sheet";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 const StudentsPage = () => {
   const { list: students, setStudents } = useStudentStore();
@@ -24,7 +26,16 @@ const StudentsPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader actions={<AddStudentSheet />}>
+      <PageHeader
+        actions={
+          <UpsertStudentSheet>
+            <Button size="sm">
+              <Plus />
+              Add Student
+            </Button>
+          </UpsertStudentSheet>
+        }
+      >
         <PageTitle>Students</PageTitle>
         <PageDescription>Lorem ipsum dolor sit amet.</PageDescription>
       </PageHeader>

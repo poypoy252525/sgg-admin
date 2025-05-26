@@ -65,18 +65,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4 h-full flex flex-col p-2">
       <div className="flex items-center justify-between">
-        {/* <Input
-          placeholder={`Filter ${columnFilter}...`}
-          value={
-            (table.getColumn(columnFilter)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(columnFilter)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
-
-        <div className="w-80">
+        <div className="lg:w-80">
           {filterInputComponent?.(
             (columnId) => ({
               onChange: (event) => {

@@ -1,8 +1,8 @@
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Course, Student } from "generated/prisma";
-import { Ellipsis } from "lucide-react";
+import Actions from "./components/actions";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Student & { course: Course }>[] = [
   {
@@ -29,14 +29,23 @@ export const columns: ColumnDef<Student & { course: Course }>[] = [
     },
   },
   {
+    accessorKey: "sex",
+    header: "Gender",
+    cell: ({ getValue }) => {
+      const sex = getValue() as string;
+
+      return (
+        <Badge className="capitalize" variant="outline">
+          {sex.toLowerCase()}
+        </Badge>
+      );
+    },
+  },
+  {
     id: "actions",
     header: "",
-    cell: () => {
-      return (
-        <Button size="sm" variant="ghost">
-          <Ellipsis />
-        </Button>
-      );
+    cell: ({ row }) => {
+      return <Actions row={row} />;
     },
   },
 ];

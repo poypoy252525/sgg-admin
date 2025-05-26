@@ -26,7 +26,11 @@ app.on("ready", () => {
         "preload.cjs"
       ),
     },
+    minHeight: 720,
+    minWidth: 1280,
   });
+
+  mainWindow.maximize();
 
   if (app.isPackaged) {
     mainWindow.loadFile(
@@ -48,14 +52,34 @@ ipcMain.handle("get-students", async () => {
   return students;
 });
 
-ipcMain.handle("create-student", async (_event, student: ZodStudent) => {
-  await prisma.student.create({
-    data: {
-      ...student,
-      sex: student.sex as Sex,
-      image: undefined,
+ipcMain.handle("get-student", async (_event, id: number) => {
+  const student = await prisma.student.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      course: true,
     },
   });
+
+  return student;
+});
+
+ipcMain.handle("create-student", async (_event, student: ZodStudent) => {
+  await prisma.student.upsert({
+    create: {
+      ...student,
+      sex: student.sex as Sex,
+    },
+    update: {
+      ...student,
+    },
+    where: {
+      id: student.id || -1,
+    },
+  });
+
+  return { success: true };
 });
 
 ipcMain.handle("get-courses", async () => {
@@ -67,4 +91,15 @@ ipcMain.handle("get-courses", async () => {
   });
 
   return courses;
+});
+
+ipcMain.handle("delete-student", async (_event, id: number) => {
+  console.log(id);
+  await prisma.student.delete({
+    where: {
+      id,
+    },
+  });
+
+  return { success: true };
 });

@@ -1,14 +1,13 @@
 import { Outlet } from "react-router-dom";
 import AppSidebar from "./components/app-sidebar";
 import { SidebarProvider } from "./components/ui/sidebar";
-import "./assets/fonts/Inter.ttf";
 
 const App = () => {
   return (
-    <div className="font-display">
+    <div className="font-display overflow-hidden">
       <SidebarProvider>
         <AppSidebar />
-        <div className="h-dvh w-full flex flex-col">
+        <div className="flex flex-col flex-1">
           <Outlet />
         </div>
       </SidebarProvider>
