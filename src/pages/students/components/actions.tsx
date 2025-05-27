@@ -12,8 +12,8 @@ import { Row } from "@tanstack/react-table";
 import { Student } from "generated/prisma";
 import { Ellipsis, Eye, Trash2, UserPen } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import DeleteStudentDialog from "./delete-student-dialog";
+import StudentDetailsDialog from "./student-details-dialog";
 import UpsertStudentSheet from "./upsert-student-sheet";
 
 interface Props {
@@ -23,7 +23,8 @@ interface Props {
 const Actions = ({ row }: Props) => {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  // const setStudents = useStudentStore((state) => state.setStudents);
+  const [studentDialogOpen, setStudentDialogOpen] = useState(false);
+
   return (
     <>
       <UpsertStudentSheet
@@ -36,6 +37,11 @@ const Actions = ({ row }: Props) => {
         open={deleteDialogOpen}
         setOpen={setDeleteDialogOpen}
       />
+      <StudentDetailsDialog
+        open={studentDialogOpen}
+        setOpen={setStudentDialogOpen}
+        student={row.original}
+      />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button size="sm" variant="ghost">
@@ -44,14 +50,12 @@ const Actions = ({ row }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>
-            <Link to={`/students/${row.original.id}`}>
-              <DropdownMenuItem>
-                <span>View</span>
-                <DropdownMenuShortcut>
-                  <Eye />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem onClick={() => setStudentDialogOpen(true)}>
+              <span>View</span>
+              <DropdownMenuShortcut>
+                <Eye />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setSheetOpen(true)}>
               <span>Edit</span>
               <DropdownMenuShortcut>

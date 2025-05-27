@@ -1,8 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Course } from "generated/prisma";
-import { Ellipsis } from "lucide-react";
+import Actions from "./components/actions";
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -25,11 +24,7 @@ export const columns: ColumnDef<Course>[] = [
     id: "actions",
     header: "",
     cell: () => {
-      return (
-        <Button variant="ghost" size="sm">
-          <Ellipsis />
-        </Button>
-      );
+      return <Actions />;
     },
   },
 ];

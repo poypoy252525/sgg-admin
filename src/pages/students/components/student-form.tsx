@@ -1,19 +1,22 @@
 import InputForm from "@/components/input-form";
 import SelectForm from "@/components/select-form";
 import { Form } from "@/components/ui/form";
-import { studentSchema, ZodStudent } from "@/schemas/student";
+import { studentSchema } from "@/schemas/student";
 import { useStudentStore } from "@/stores/student";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Student } from "generated/prisma";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import DatePicker from "./date-picker";
 
 interface Props {
   student?: Student;
+  onSuccess?: () => void;
 }
 
-const StudentForm = ({ student }: Props) => {
-  const form = useForm<ZodStudent>({
+const StudentForm = ({ student, onSuccess }: Props) => {
+  const form = useForm<z.input<typeof studentSchema>>({
     resolver: zodResolver(studentSchema),
     ...(student && {
       defaultValues: {
@@ -26,6 +29,8 @@ const StudentForm = ({ student }: Props) => {
         image: student.image || undefined,
         middleName: student.middleName || undefined,
         sex: student.sex,
+        address: student.address,
+        dateOfBirth: new Date(student.dateOfBirth),
       },
     }),
   });
@@ -49,9 +54,17 @@ const StudentForm = ({ student }: Props) => {
       <form
         id="add-student-form"
         onSubmit={form.handleSubmit(async (data) => {
-          await window.electron.createStudent(data);
-          const students = await window.electron.getStudents();
-          setStudents(students);
+          try {
+            await window.electron.createStudent({
+              ...data,
+              dateOfBirth: data.dateOfBirth as Date,
+            });
+            const students = await window.electron.getStudents();
+            setStudents(students);
+            onSuccess?.();
+          } catch (error) {
+            console.error(error);
+          }
         })}
         className="flex flex-col space-y-8 p-8"
       >
@@ -65,6 +78,7 @@ const StudentForm = ({ student }: Props) => {
         <InputForm form={form} label="Last Name" name="lastName" />
         <InputForm form={form} label="Email" name="email" />
         <InputForm form={form} label="Age" name="age" />
+        <InputForm form={form} label="Address" name="address" />
         <SelectForm
           form={form}
           items={[
@@ -80,6 +94,7 @@ const StudentForm = ({ student }: Props) => {
           label="Gender"
           name="sex"
         />
+        <DatePicker form={form} label="Date of Birth" name="dateOfBirth" />
         <SelectForm
           form={form}
           items={courses}

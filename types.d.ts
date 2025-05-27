@@ -13,6 +13,7 @@ declare global {
       getCourses: () => Promise<
         (Course & { competencies: Competency[]; students: Student[] })[]
       >;
+      getCourse: (id: number) => Promise<Course>;
     };
   }
 }

@@ -103,3 +103,13 @@ ipcMain.handle("delete-student", async (_event, id: number) => {
 
   return { success: true };
 });
+
+ipcMain.handle("get-course", async (_event, id: number) => {
+  const course = await prisma.course.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return course;
+});

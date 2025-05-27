@@ -29,7 +29,16 @@ const UpsertStudentSheet = memo(
             <SheetTitle>Student Information</SheetTitle>
           </SheetHeader>
           <div className="flex-1 overflow-y-auto styled-scrollbar">
-            <StudentForm student={student} />
+            <StudentForm
+              onSuccess={() => {
+                if (setOpen) {
+                  setOpen(false);
+                } else {
+                  setLocalOpen(false);
+                }
+              }}
+              student={student}
+            />
           </div>
           <SheetFooter className="h-14 border-t flex flex-row items-center">
             <div className="ml-auto flex space-x-2">

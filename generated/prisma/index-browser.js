@@ -128,7 +128,9 @@ exports.Prisma.StudentScalarFieldEnum = {
   age: 'age',
   image: 'image',
   sex: 'sex',
-  courseId: 'courseId'
+  courseId: 'courseId',
+  address: 'address',
+  dateOfBirth: 'dateOfBirth'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {

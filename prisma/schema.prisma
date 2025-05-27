@@ -12,18 +12,20 @@ datasource db {
 }
 
 model Student {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  firstName  String
-  middleName String?
-  lastName   String
-  email      String   @unique
-  age        Int
-  image      String?
-  sex        Sex
-  courseId   Int
-  course     Course   @relation(fields: [courseId], references: [id])
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  firstName   String
+  middleName  String?
+  lastName    String
+  email       String   @unique
+  age         Int
+  image       String?
+  sex         Sex
+  courseId    Int
+  address     String
+  dateOfBirth DateTime
+  course      Course   @relation(fields: [courseId], references: [id])
 }
 
 model Course {

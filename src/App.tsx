@@ -7,9 +7,9 @@ const App = () => {
     <div className="font-display overflow-hidden">
       <SidebarProvider>
         <AppSidebar />
-        <div className="flex flex-col flex-1">
+        <main className="flex flex-col flex-1">
           <Outlet />
-        </div>
+        </main>
       </SidebarProvider>
     </div>
   );
