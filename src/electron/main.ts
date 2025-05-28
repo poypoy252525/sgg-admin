@@ -1,7 +1,8 @@
-import { BrowserWindow, app, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { chmodSync, existsSync } from "fs";
 import path from "path";
 import { PrismaClient, Sex } from "../../generated/prisma/index.js";
-import { chmodSync, existsSync } from "fs";
+import { ZodCourse } from "../schemas/course.js";
 import { ZodStudent } from "../schemas/student.js";
 
 const dbPath = app.isPackaged
@@ -112,4 +113,16 @@ ipcMain.handle("get-course", async (_event, id: number) => {
   });
 
   return course;
+});
+
+ipcMain.handle("create-course", async (_event, course: ZodCourse) => {
+  try {
+    await prisma.course.create({
+      data: {
+        ...course,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });

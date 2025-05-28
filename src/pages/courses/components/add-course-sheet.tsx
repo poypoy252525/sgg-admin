@@ -28,7 +28,16 @@ const AddCourseSheet = memo(({ children, course, open, setOpen }: Props) => {
           <SheetTitle>Course Details</SheetTitle>
         </SheetHeader>
         <div className="flex-1 overflow-y-auto styled-scrollbar">
-          <CourseForm course={course} />
+          <CourseForm
+            course={course}
+            onSuccess={() => {
+              if (setOpen) {
+                setOpen(false);
+              } else {
+                setLocalOpen(false);
+              }
+            }}
+          />
         </div>
         <SheetFooter className="h-14 border-t flex flex-row items-center">
           <div className="ml-auto flex space-x-2">
@@ -39,7 +48,7 @@ const AddCourseSheet = memo(({ children, course, open, setOpen }: Props) => {
             >
               Cancel
             </Button>
-            <Button type="submit" form="add-student-form" size="sm">
+            <Button type="submit" form="upsert-course-form" size="sm">
               Save
             </Button>
           </div>

@@ -1,5 +1,6 @@
 import { ZodStudent } from "@/schemas/student";
 import { Competency, Course, Student } from "./generated/prisma";
+import { ZodCourse } from "@/schemas/course";
 
 export {};
 
@@ -14,6 +15,7 @@ declare global {
         (Course & { competencies: Competency[]; students: Student[] })[]
       >;
       getCourse: (id: number) => Promise<Course>;
+      createCourse: (course: ZodCourse) => Promise<void>;
     };
   }
 }
