@@ -8,6 +8,9 @@ import { useCourseStore } from "@/stores/course";
 import { useCallback, useEffect } from "react";
 import { columns } from "./columns";
 import { Input } from "@/components/ui/input";
+import AddCourseSheet from "./components/add-course-sheet";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 const CoursesPage = () => {
   const { courses, setCourses } = useCourseStore();
@@ -23,7 +26,16 @@ const CoursesPage = () => {
 
   return (
     <PageContainer>
-      <PageHeader>
+      <PageHeader
+        actions={
+          <AddCourseSheet>
+            <Button size="sm">
+              <Plus />
+              Add Course
+            </Button>
+          </AddCourseSheet>
+        }
+      >
         <PageTitle>Courses</PageTitle>
         <PageDescription>
           Lorem ipsum dolor sit amet consectetur.
