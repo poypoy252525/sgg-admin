@@ -14,6 +14,7 @@ interface Props<T extends FieldValues> {
   name: Path<T>;
   label: string;
   description?: string;
+  type?: "string" | "number";
 }
 
 const InputForm = <T extends FieldValues>({
@@ -21,6 +22,7 @@ const InputForm = <T extends FieldValues>({
   name,
   label,
   description,
+  type = "string",
 }: Props<T>) => {
   return (
     <FormField
@@ -30,7 +32,21 @@ const InputForm = <T extends FieldValues>({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={label} {...field} />
+            <Input
+              placeholder={label}
+              {...field}
+              value={field.value}
+              onChange={(e) => {
+                if (type === "string") {
+                  field.onChange(e);
+                  return;
+                }
+                const value = e.target.value;
+                if (/^\d+$/.test(value) || !value) {
+                  field.onChange(value);
+                }
+              }}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

@@ -77,7 +77,7 @@ const StudentForm = ({ student, onSuccess }: Props) => {
         />
         <InputForm form={form} label="Last Name" name="lastName" />
         <InputForm form={form} label="Email" name="email" />
-        <InputForm form={form} label="Age" name="age" />
+        <InputForm type="number" form={form} label="Age" name="age" />
         <InputForm form={form} label="Address" name="address" />
         <SelectForm
           form={form}
