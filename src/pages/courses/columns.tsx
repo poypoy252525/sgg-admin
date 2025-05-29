@@ -23,8 +23,8 @@ export const columns: ColumnDef<Course>[] = [
   {
     id: "actions",
     header: "",
-    cell: () => {
-      return <Actions />;
+    cell: ({ row }) => {
+      return <Actions course={row.original} />;
     },
   },
 ];

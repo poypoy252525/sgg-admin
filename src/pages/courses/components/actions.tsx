@@ -8,9 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { Course } from "generated/prisma";
 import { Ellipsis, Eye, PenBox, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const Actions = () => {
+interface Props {
+  course: Course;
+}
+
+const Actions = ({ course }: Props) => {
   return (
     <div>
       <DropdownMenu>
@@ -21,12 +27,14 @@ const Actions = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <span>View</span>
-              <DropdownMenuShortcut>
-                <Eye />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <Link to={`/courses/${course.id}`}>
+              <DropdownMenuItem>
+                <span>View</span>
+                <DropdownMenuShortcut>
+                  <Eye />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>
               <span>Edit</span>
               <DropdownMenuShortcut>

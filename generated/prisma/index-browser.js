@@ -128,9 +128,10 @@ exports.Prisma.StudentScalarFieldEnum = {
   age: 'age',
   image: 'image',
   sex: 'sex',
-  courseId: 'courseId',
   address: 'address',
-  dateOfBirth: 'dateOfBirth'
+  dateOfBirth: 'dateOfBirth',
+  status: 'status',
+  courseId: 'courseId'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {
@@ -149,7 +150,8 @@ exports.Prisma.CompetencyScalarFieldEnum = {
   updatedAt: 'updatedAt',
   courseId: 'courseId',
   name: 'name',
-  duration: 'duration'
+  duration: 'duration',
+  type: 'type'
 };
 
 exports.Prisma.SortOrder = {
@@ -166,10 +168,21 @@ exports.Sex = exports.$Enums.Sex = {
   FEMALE: 'FEMALE'
 };
 
+exports.StudentStatus = exports.$Enums.StudentStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
 exports.CourseType = exports.$Enums.CourseType = {
   TESDA: 'TESDA',
   DEPED: 'DEPED',
   OTHERS: 'OTHERS'
+};
+
+exports.CompetencyType = exports.$Enums.CompetencyType = {
+  BASIC: 'BASIC',
+  COMMON: 'COMMON',
+  CORE: 'CORE'
 };
 
 exports.Prisma.ModelName = {

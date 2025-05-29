@@ -4,6 +4,7 @@ import DashboardPage from "./pages/dashboard/page";
 import StudentsPage from "./pages/students/page";
 import CoursesPage from "./pages/courses/page";
 import StudentDetailsPage from "./pages/students/[id]/page";
+import CourseDetailsPage from "./pages/courses/[id]/page";
 
 export const router = createHashRouter([
   {
@@ -20,6 +21,7 @@ export const router = createHashRouter([
         element: <StudentDetailsPage />,
       },
       { path: "courses", element: <CoursesPage /> },
+      { path: "courses/:id", element: <CourseDetailsPage /> },
     ],
   },
 ]);

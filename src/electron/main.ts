@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { chmodSync, existsSync } from "fs";
 import path from "path";
-import { PrismaClient, Sex } from "../../generated/prisma/index.js";
+import { Competency, PrismaClient, Sex } from "../../generated/prisma/index.js";
 import { ZodCourse } from "../schemas/course.js";
 import { ZodStudent } from "../schemas/student.js";
 
@@ -110,6 +110,10 @@ ipcMain.handle("get-course", async (_event, id: number) => {
     where: {
       id,
     },
+    include: {
+      competencies: true,
+      students: true,
+    },
   });
 
   return course;
@@ -122,6 +126,19 @@ ipcMain.handle("create-course", async (_event, course: ZodCourse) => {
         ...course,
       },
     });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+ipcMain.handle("create-competency", async (_event, competency: Competency) => {
+  try {
+    await prisma.competency.create({
+      data: {
+        ...competency,
+      },
+    });
+    console.log(competency);
   } catch (error) {
     console.error(error);
   }

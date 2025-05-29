@@ -12,20 +12,21 @@ datasource db {
 }
 
 model Student {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   firstName   String
   middleName  String?
   lastName    String
-  email       String   @unique
+  email       String        @unique
   age         Int
   image       String?
   sex         Sex
-  courseId    Int
   address     String
   dateOfBirth DateTime
-  course      Course   @relation(fields: [courseId], references: [id])
+  status      StudentStatus @default(ACTIVE)
+  courseId    Int
+  course      Course        @relation(fields: [courseId], references: [id])
 }
 
 model Course {
@@ -41,13 +42,25 @@ model Course {
 }
 
 model Competency {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
   courseId  Int
-  course    Course   @relation(fields: [courseId], references: [id])
+  course    Course         @relation(fields: [courseId], references: [id])
   name      String
   duration  Int
+  type      CompetencyType
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CompetencyType {
+  BASIC
+  COMMON
+  CORE
 }
 
 enum CourseType {

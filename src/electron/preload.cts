@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { ZodStudent } from "../schemas/student";
 import { ZodCourse } from "../schemas/course";
+import { Competency } from "../../generated/prisma";
 
 contextBridge.exposeInMainWorld("electron", {
   getStudents: async () => ipcRenderer.invoke("get-students"),
@@ -12,4 +13,6 @@ contextBridge.exposeInMainWorld("electron", {
   getCourse: async (id: number) => ipcRenderer.invoke("get-course", id),
   createCourse: async (course: ZodCourse) =>
     ipcRenderer.invoke("create-course", course),
+  createCompetency: async (competency: Competency) =>
+    ipcRenderer.invoke("create-competency", competency),
 });
