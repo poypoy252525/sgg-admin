@@ -25,7 +25,7 @@ const Actions = ({ course }: Props) => {
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent align="end">
           <DropdownMenuGroup>
             <Link to={`/courses/${course.id}`}>
               <DropdownMenuItem>

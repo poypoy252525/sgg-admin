@@ -1,5 +1,6 @@
 {
   "name": "sgg-admin",
+  "productName": "Sacred Gift of God",
   "private": true,
   "version": "1.0.0",
   "type": "module",

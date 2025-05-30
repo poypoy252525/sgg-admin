@@ -37,7 +37,7 @@ const StudentsPage = () => {
         }
       >
         <PageTitle>Students</PageTitle>
-        <PageDescription>Lorem ipsum dolor sit amet.</PageDescription>
+        <PageDescription>All record of students</PageDescription>
       </PageHeader>
       <PageBody>
         <DataTable

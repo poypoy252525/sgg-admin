@@ -3,6 +3,7 @@ import PageContainer from "@/components/page-container";
 import PageDescription from "@/components/page-description";
 import PageHeader from "@/components/page-header";
 import PageTitle from "@/components/page-title";
+import SummaryCard from "./components/summary-card";
 
 const DashboardPage = () => {
   return (
@@ -12,8 +13,11 @@ const DashboardPage = () => {
         <PageDescription>Summary of all your records</PageDescription>
       </PageHeader>
       <PageBody>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-        distinctio!
+        <div className="grid grid-cols-3 gap-4">
+          <SummaryCard />
+          <SummaryCard />
+          <SummaryCard />
+        </div>
       </PageBody>
     </PageContainer>
   );

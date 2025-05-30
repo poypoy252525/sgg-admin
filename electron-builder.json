@@ -1,5 +1,6 @@
 {
   "appId": "com.delfin.sgg",
+  "artifactName": "SGG",
   "files": ["dist-electron", "dist-react", "generated"],
   "extraResources": ["prisma"],
   "icon": "./sgg_logo.png",

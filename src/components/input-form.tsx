@@ -35,15 +35,16 @@ const InputForm = <T extends FieldValues>({
             <Input
               placeholder={label}
               {...field}
-              value={field.value}
+              value={field.value || ""}
               onChange={(e) => {
                 if (type === "string") {
                   field.onChange(e);
                   return;
                 }
                 const value = e.target.value;
-                if (/^\d+$/.test(value) || !value) {
-                  field.onChange(value);
+                if (!isNaN(parseInt(value)) || !value) {
+                  console.log(value);
+                  field.onChange(value || undefined);
                 }
               }}
             />
