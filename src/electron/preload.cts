@@ -18,4 +18,5 @@ contextBridge.exposeInMainWorld("electron", {
     ipcRenderer.invoke("create-competency", competency),
   createSubject: async (subject: ZodSubject) =>
     ipcRenderer.invoke("create-subject", subject),
+  getSubjects: async () => ipcRenderer.invoke("get-subjects"),
 });

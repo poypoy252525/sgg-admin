@@ -164,3 +164,17 @@ ipcMain.handle("create-subject", async (_event, subject: ZodSubject) => {
     console.error(error);
   }
 });
+
+ipcMain.handle("get-subjects", async () => {
+  try {
+    const subjects = await prisma.subject.findMany({
+      include: {
+        course: true,
+      },
+    });
+    return subjects;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+});

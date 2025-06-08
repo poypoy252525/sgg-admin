@@ -6,8 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useSubjectStore } from "@/stores/subject";
 import { Competency, Course, Student, Subject } from "generated/prisma";
+import { useEffect } from "react";
 import AddSubjectDialog from "./add-subject-dialog";
+import SubjectTable from "./subject-table";
 
 interface Props {
   course: Course & {
@@ -18,7 +21,14 @@ interface Props {
 }
 
 const DepedCourseAsideCard = ({ course }: Props) => {
-  const { subjects, id } = course;
+  const { id } = course;
+
+  const refreshSubjects = useSubjectStore((state) => state.refresh);
+  const subjects = useSubjectStore((state) => state.subjects);
+
+  useEffect(() => {
+    refreshSubjects();
+  }, [refreshSubjects]);
 
   return (
     <Card>
@@ -27,11 +37,7 @@ const DepedCourseAsideCard = ({ course }: Props) => {
         <CardDescription>Subjects</CardDescription>
       </CardHeader>
       <CardContent>
-        {subjects.length !== 0 ? (
-          subjects.map((subject) => <div key={subject.id}>{subject.name}</div>)
-        ) : (
-          <div className="w-full flex justify-center">No subjects.</div>
-        )}
+        <SubjectTable subjects={subjects} />
       </CardContent>
       <CardFooter>
         <AddSubjectDialog courseId={id} />

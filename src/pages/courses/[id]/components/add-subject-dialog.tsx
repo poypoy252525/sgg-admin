@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { ALSSubjectType, subjectSchema, ZodSubject } from "@/schemas/subject";
+import { useSubjectStore } from "@/stores/subject";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -21,8 +23,12 @@ interface Props {
 }
 
 const AddSubjectDialog = ({ courseId }: Props) => {
+  const [open, setOpen] = useState(false);
+
+  const refreshSubjects = useSubjectStore((state) => state.refresh);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full">
           <Plus />
@@ -35,10 +41,18 @@ const AddSubjectDialog = ({ courseId }: Props) => {
           <DialogDescription>Fill up the information</DialogDescription>
         </DialogHeader>
         <div>
-          <SubjectForm courseId={courseId} />
+          <SubjectForm
+            courseId={courseId}
+            onSuccess={() => {
+              setOpen(false);
+              refreshSubjects();
+            }}
+          />
         </div>
         <DialogFooter>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           <Button type="submit" form="add-subject-form">
             Save
           </Button>
@@ -48,7 +62,13 @@ const AddSubjectDialog = ({ courseId }: Props) => {
   );
 };
 
-const SubjectForm = ({ courseId }: { courseId: number }) => {
+const SubjectForm = ({
+  courseId,
+  onSuccess,
+}: {
+  courseId: number;
+  onSuccess?: () => void;
+}) => {
   const form = useForm<ZodSubject>({
     resolver: zodResolver(subjectSchema),
     defaultValues: {
@@ -57,7 +77,12 @@ const SubjectForm = ({ courseId }: { courseId: number }) => {
   });
 
   const handleSubmit = async (subject: ZodSubject) => {
-    await window.electron.createSubject(subject);
+    try {
+      await window.electron.createSubject(subject);
+      onSuccess?.();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
