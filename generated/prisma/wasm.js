@@ -154,6 +154,15 @@ exports.Prisma.CompetencyScalarFieldEnum = {
   type: 'type'
 };
 
+exports.Prisma.SubjectScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  courseId: 'courseId',
+  name: 'name',
+  type: 'type'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -185,10 +194,16 @@ exports.CompetencyType = exports.$Enums.CompetencyType = {
   CORE: 'CORE'
 };
 
+exports.ALSSubjectType = exports.$Enums.ALSSubjectType = {
+  ALS_1: 'ALS_1',
+  ALS_2: 'ALS_2'
+};
+
 exports.Prisma.ModelName = {
   Student: 'Student',
   Course: 'Course',
-  Competency: 'Competency'
+  Competency: 'Competency',
+  Subject: 'Subject'
 };
 
 /**

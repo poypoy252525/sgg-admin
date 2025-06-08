@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Row } from "@tanstack/react-table";
 import { Student } from "generated/prisma";
-import { Ellipsis, Eye, Trash2, UserPen } from "lucide-react";
+import { Download, Ellipsis, Eye, Trash2, UserPen } from "lucide-react";
 import { useState } from "react";
 import DeleteStudentDialog from "./delete-student-dialog";
 import StudentDetailsDialog from "./student-details-dialog";
@@ -48,7 +48,7 @@ const Actions = ({ row }: Props) => {
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="lg:min-w-44">
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={() => setStudentDialogOpen(true)}>
               <span>View</span>
@@ -62,16 +62,21 @@ const Actions = ({ row }: Props) => {
                 <UserPen />
               </DropdownMenuShortcut>
             </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                // setDeleteDialogOpen(true);
+              }}
+            >
+              <span>Download TOR</span>
+              <DropdownMenuShortcut>
+                <Download />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem
               variant="destructive"
-              // onClick={async () => {
-              //   await window.electron.deleteStudent(row.original.id);
-              //   setStudents(await window.electron.getStudents());
-              // }}
-
               onClick={() => {
                 setDeleteDialogOpen(true);
               }}

@@ -37,6 +37,7 @@ model Course {
   title           String
   type            CourseType
   competencies    Competency[]
+  subjects        Subject[]
   startOfTraining DateTime?
   endOfTraining   DateTime?
 }
@@ -50,6 +51,21 @@ model Competency {
   name      String
   duration  Int
   type      CompetencyType
+}
+
+model Subject {
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  courseId  Int
+  course    Course         @relation(fields: [courseId], references: [id])
+  name      String
+  type      ALSSubjectType
+}
+
+enum ALSSubjectType {
+  ALS_1
+  ALS_2
 }
 
 enum StudentStatus {

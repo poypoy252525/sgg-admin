@@ -14,8 +14,7 @@ interface Props {
   course: Course & { competencies: Competency[]; students: Student[] };
 }
 
-const CourseAsideCard = ({ course }: Props) => {
-  console.log(course.competencies);
+const TesdaCourseAsideCard = ({ course }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -57,4 +56,4 @@ const CourseAsideCard = ({ course }: Props) => {
   );
 };
 
-export default CourseAsideCard;
+export default TesdaCourseAsideCard;

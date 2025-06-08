@@ -1,9 +1,15 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { chmodSync, existsSync } from "fs";
 import path from "path";
-import { Competency, PrismaClient, Sex } from "../../generated/prisma/index.js";
+import {
+  ALSSubjectType,
+  Competency,
+  PrismaClient,
+  Sex,
+} from "../../generated/prisma/index.js";
 import { ZodCourse } from "../schemas/course.js";
 import { ZodStudent } from "../schemas/student.js";
+import { ZodSubject } from "../schemas/subject.js";
 
 const dbPath = app.isPackaged
   ? path.join(process.resourcesPath, "prisma", "dev.db")
@@ -88,6 +94,7 @@ ipcMain.handle("get-courses", async () => {
     include: {
       competencies: true,
       students: true,
+      subjects: true,
     },
   });
 
@@ -113,6 +120,7 @@ ipcMain.handle("get-course", async (_event, id: number) => {
     include: {
       competencies: true,
       students: true,
+      subjects: true,
     },
   });
 
@@ -139,6 +147,19 @@ ipcMain.handle("create-competency", async (_event, competency: Competency) => {
       },
     });
     console.log(competency);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+ipcMain.handle("create-subject", async (_event, subject: ZodSubject) => {
+  try {
+    await prisma.subject.create({
+      data: {
+        ...subject,
+        type: subject.type as ALSSubjectType,
+      },
+    });
   } catch (error) {
     console.error(error);
   }

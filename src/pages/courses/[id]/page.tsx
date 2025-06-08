@@ -4,17 +4,22 @@ import PageContainer from "@/components/page-container";
 import PageDescription from "@/components/page-description";
 import PageHeader from "@/components/page-header";
 import PageTitle from "@/components/page-title";
-import { Competency, Course, Student } from "generated/prisma";
+import { Competency, Course, Student, Subject } from "generated/prisma";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { columns } from "./columns";
 import { Input } from "@/components/ui/input";
-import CourseAsideCard from "./components/course-aside-card";
+import TesdaCourseAsideCard from "./components/tesda-course-aside-card";
+import DepedCourseAsideCard from "./components/deped-course-aside-card";
 
 const CourseDetailsPage = () => {
   const { id } = useParams();
   const [course, setCourse] = useState<
-    Course & { competencies: Competency[]; students: Student[] }
+    Course & {
+      competencies: Competency[];
+      students: Student[];
+      subjects: Subject[];
+    }
   >();
 
   const fetchCourse = useCallback(async () => {
@@ -46,7 +51,12 @@ const CourseDetailsPage = () => {
             </div>
           </div>
           <div className="col-span-5 flex flex-col w-full h-full overflow-auto">
-            {course && <CourseAsideCard course={course} />}
+            {course &&
+              (course.type === "TESDA" ? (
+                <TesdaCourseAsideCard course={course} />
+              ) : (
+                <DepedCourseAsideCard course={course} />
+              ))}
           </div>
         </div>
       </PageBody>
