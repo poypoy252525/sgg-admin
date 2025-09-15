@@ -179,6 +179,24 @@ ipcMain.handle("create-subject", async (_event, subject: ZodSubject) => {
   }
 });
 
+ipcMain.handle("get-student-for-tor", async (_event, id: number) => {
+  const student = await prisma.student.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      course: {
+        include: {
+          competencies: true,
+          subjects: true,
+        },
+      },
+    },
+  });
+
+  return student;
+});
+
 ipcMain.handle("get-subjects", async () => {
   try {
     const subjects = await prisma.subject.findMany({

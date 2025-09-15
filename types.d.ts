@@ -11,6 +11,14 @@ declare global {
     electron: {
       getStudents: () => Promise<(Student & { course: Course })[]>;
       getStudent: (id: number) => Promise<Student & { course: Course }>;
+      getStudentForTOR: (id: number) => Promise<
+        Student & {
+          course: Course & {
+            competencies: Competency[];
+            subjects: Subject[];
+          };
+        }
+      >;
       deleteStudent: (id: number) => Promise<{ success: boolean }>;
       createStudent: (student: ZodStudent) => Promise<void>;
       getCourses: () => Promise<

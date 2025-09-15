@@ -15,6 +15,7 @@ import { useState } from "react";
 import DeleteStudentDialog from "./delete-student-dialog";
 import StudentDetailsDialog from "./student-details-dialog";
 import UpsertStudentSheet from "./upsert-student-sheet";
+import { generateTOR } from "@/lib/tor-generator";
 
 interface Props {
   row: Row<Student>;
@@ -24,6 +25,22 @@ const Actions = ({ row }: Props) => {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [studentDialogOpen, setStudentDialogOpen] = useState(false);
+
+  const handleDownloadTOR = async () => {
+    try {
+      const studentData = await window.electron.getStudentForTOR(
+        row.original.id
+      );
+      if (studentData) {
+        await generateTOR({
+          student: studentData,
+          course: studentData.course,
+        });
+      }
+    } catch (error) {
+      console.error("Error generating TOR:", error);
+    }
+  };
 
   return (
     <>
@@ -64,7 +81,7 @@ const Actions = ({ row }: Props) => {
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                // setDeleteDialogOpen(true);
+                handleDownloadTOR();
               }}
             >
               <span>Download TOR</span>

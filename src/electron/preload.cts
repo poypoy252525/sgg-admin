@@ -7,6 +7,8 @@ import { ZodSubject } from "../schemas/subject";
 contextBridge.exposeInMainWorld("electron", {
   getStudents: async () => ipcRenderer.invoke("get-students"),
   getStudent: async (id: number) => ipcRenderer.invoke("get-student", id),
+  getStudentForTOR: async (id: number) =>
+    ipcRenderer.invoke("get-student-for-tor", id),
   createStudent: async (student: ZodStudent) =>
     ipcRenderer.invoke("create-student", student),
   deleteStudent: async (id: number) => ipcRenderer.invoke("delete-student", id),
