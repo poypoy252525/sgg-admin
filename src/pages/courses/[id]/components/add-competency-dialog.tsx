@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { competencySchema, ZodCompetency } from "@/schemas/competency";
+import { useCompetencyStore } from "@/stores/competency";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -21,8 +23,9 @@ interface Props {
 }
 
 const AddCompetencyDialog = ({ courseId }: Props) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="outline" className="w-full">
           <Plus />
@@ -34,8 +37,11 @@ const AddCompetencyDialog = ({ courseId }: Props) => {
           <DialogTitle>Competency Details</DialogTitle>
           <DialogDescription>Fill up the form</DialogDescription>
         </DialogHeader>
-        <CompetencyForm courseId={courseId} />
+        <CompetencyForm courseId={courseId} onSuccess={() => setOpen(false)} />
         <DialogFooter>
+          <Button variant="outline" size="sm" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           <Button size="sm" form="competency-form" type="submit">
             Save
           </Button>
@@ -45,13 +51,21 @@ const AddCompetencyDialog = ({ courseId }: Props) => {
   );
 };
 
-const CompetencyForm = ({ courseId }: Props) => {
+const CompetencyForm = ({
+  courseId,
+  onSuccess,
+}: {
+  courseId: number;
+  onSuccess?: () => void;
+}) => {
   const form = useForm<ZodCompetency>({
     resolver: zodResolver(competencySchema),
     defaultValues: {
       courseId,
     },
   });
+
+  const refresh = useCompetencyStore((state) => state.refresh);
 
   return (
     <Form {...form}>
@@ -62,6 +76,8 @@ const CompetencyForm = ({ courseId }: Props) => {
           console.log(data);
           try {
             await window.electron.createCompetency(data);
+            refresh();
+            onSuccess?.();
           } catch (error) {
             console.error(error);
           }

@@ -152,6 +152,20 @@ ipcMain.handle("create-competency", async (_event, competency: Competency) => {
   }
 });
 
+ipcMain.handle("get-competencies", async () => {
+  try {
+    const competencies = await prisma.competency.findMany({
+      include: {
+        course: true,
+      },
+    });
+    return competencies;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+});
+
 ipcMain.handle("create-subject", async (_event, subject: ZodSubject) => {
   try {
     await prisma.subject.create({

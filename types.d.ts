@@ -29,6 +29,7 @@ declare global {
       >;
       createCourse: (course: ZodCourse) => Promise<void>;
       createCompetency: (competency: ZodCompetency) => Promise<void>;
+      getCompetencies: () => Promise<Competency[]>;
       createSubject: (subject: ZodSubject) => Promise<void>;
       getSubjects: () => Promise<Subject[]>;
     };
